@@ -12,3 +12,37 @@ as command line arguments).
 
 The pointers argv[1] .. argv[argc-1] point at the first characters in each of these strings.
 
+argv[0] (if non-null) is the pointer to the initial character of a null-terminated
+multibyte string that represents the name used to invoke the program itself
+
+If the host environment cannot supply both lowercase and uppercase letter, the command
+line arguments are converted to lowercase.
+
+The strings are modifiable, and and modifications made persist until program termination,
+although these modifications do not propagate back to the host environment: they can be 
+used, for example, with strtok.
+
+The size of the array pointed to by argv is at least argc+1, and the last element,
+argv[argc], is guaranteed to be a null pointer.
+
+The main function has several special properties:
+1) a prototype for this function cannot be supplied by the program.
+
+2) if the return type of the main function is compatible with `int`, then the return from
+to main (but not the return from any subsequent, recursive, call) is equivalent to executing
+the exit function, with the value that the main function is returning passed as the arguemnt
+(which then calls the function registered with `atexit`, flushes and closes all streams, 
+and deletes the files created with `tmpfile`, and returns control to the execution
+environment).
+
+3) if the main function executes a `return` that specifies no value or, which is the same,
+reaches the terminating `}` without executing a `return`, the termination status returned
+to the host environment is (until C99) undefined.
+	if the return type of the main function is not `compatible` with `int` (eg. `void`
+main `void`), the value returned to the host environment is unspecified. If the return type
+is compatible with `int` and control reaches the terminating `}`, the value returned to the
+environment is the same as if executing `return 0`.
+
+
+
+
