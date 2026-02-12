@@ -1,0 +1,14 @@
+it's called at program startup after all object with static storage duration are
+initialized.
+
+it's the designated entry point to a program that is executed in a hosted environment (that
+is, with an operating system).
+The name and type of the entry point to any freestanding program(boot loaders, OS kernel,
+etc) are implementation defined.
+
+The parameters of the 2-parameter form of the main function allow arbitrary multibyte 
+character strings to be passed from the execution environment (these are typically known
+as command line arguments). 
+
+The pointers argv[1] .. argv[argc-1] point at the first characters in each of these strings.
+
